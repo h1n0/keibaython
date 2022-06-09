@@ -6,18 +6,15 @@ sg.theme('DarkAmber')
 def main():
     window = sg.Window('競馬ython', layout_default, size=(300, 150))
 
-# イベントループ
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'やめる':
             break
         elif event == '三連単':
             window_tierce()
-
-
     window.close()
 
-# 初期画面ウィンドウに配置するコンポーネント
+# 初期画面のレイアウト
 layout_default = [  
             [sg.Button('三連単'),
             sg.Button('やめる')
@@ -25,12 +22,7 @@ layout_default = [
 
 ]
 
-
-
-# 初期画面ウィンドウの生成
-
-
-# 三連単
+# 三連単のウインドウを呼ぶ関数
 def window_tierce():
     layout_tierce = [  
     [
@@ -62,10 +54,8 @@ def window_tierce():
                 sg.popup(result)
     WindowTierce.close()
 
-
+# 三連単のデータ処理する関数
 def tip_tierce(NumOfRunners):
-    
-    # 処理
     tierce = (sorted(random.sample(range(1,int(NumOfRunners)),k=3)))
     return tierce
 
