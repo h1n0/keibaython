@@ -25,7 +25,7 @@ text = '出生頭数は？'
 select = '選択してください'
 go = 'GO!!'
 cancel = 'やめる'
-
+starters = sorted(list(range(5,19)), reverse=True)
 
 # ボタン
 col1 = [
@@ -53,7 +53,7 @@ def window_proc(case):
                 [
                 sg.Text(text), 
                 sg.Combo(
-                    values=[18,17,16,15,14,13,12,11,10,9,8,7,6,5],
+                    values=starters,
                     default_value=select,
                     size=(30,1),
                     readonly=True)
@@ -71,7 +71,7 @@ def window_proc(case):
                 [
                 sg.Text(text), 
                 sg.Combo(
-                    values=[18,17,16,15,14,13,12,11,10,9,8,7,6,5],
+                    values=starters,
                     default_value=select,
                     size=(30,1),
                     readonly=True)
@@ -87,7 +87,7 @@ def window_proc(case):
                 [
                 sg.Text(text), 
                 sg.Combo(
-                    values=[18,17,16,15,14,13,12,11,10,9,8,7,6,5],
+                    values=starters,
                     default_value=select,
                     size=(30,1),
                     readonly=True)
@@ -103,7 +103,7 @@ def window_proc(case):
                 [
                 sg.Text(text), 
                 sg.Combo(
-                    values=[18,17,16,15,14,13,12,11,10,9,8,7,6,5],
+                    values=starters,
                     default_value=select,
                     size=(30,1),
                     readonly=True)
@@ -120,7 +120,7 @@ def window_proc(case):
             if event == sg.WIN_CLOSED or event == cancel:
                 break
             elif event == go:
-                if values[0] == '選択してください':
+                if values[0] == select:
                     sg.popup('値を入力してくれ；；')
                 else:
                     result = tip_tierce(values[0])
