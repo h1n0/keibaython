@@ -18,6 +18,8 @@ def main():
             window_proc(2)
         elif event == '複勝':
             window_proc(3)
+        elif event == '枠連':
+            window_proc(4)
 
     init_window.close()
 
@@ -63,9 +65,21 @@ def window_proc(case):
                 sg.Button(cancel)
                 ] 
                 ]
-
             window = sg.Window('三連単', layout_tierce, size=(300,150))
-            
+
+            while True:
+                event, values = window.read()
+                if event == sg.WIN_CLOSED or event == cancel:
+                    break
+                elif event == go:
+                    if values[0] == select:
+                        sg.popup('値を入力してくれ；；')
+                    else:
+                        result = tip_tierce(values[0])
+                        sg.popup(result)
+
+            window.close()
+
         elif case == 1:           
             layout_trio = [  
                 [
@@ -82,6 +96,20 @@ def window_proc(case):
                 ] 
                 ]
             window = sg.Window('三連複', layout_trio, size=(300,150))
+
+            while True:
+                event, values = window.read()
+                if event == sg.WIN_CLOSED or event == cancel:
+                    break
+                elif event == go:
+                    if values[0] == select:
+                        sg.popup('値を入力してくれ；；')
+                    else:
+                        result = tip_tierce(values[0])
+                        sg.popup(result)
+
+            window.close()
+
         elif case == 2:
             layout_win = [  
                 [
@@ -98,6 +126,20 @@ def window_proc(case):
                 ] 
                 ]
             window = sg.Window('単勝', layout_win, size=(300,150))
+
+            while True:
+                event, values = window.read()
+                if event == sg.WIN_CLOSED or event == cancel:
+                    break
+                elif event == go:
+                    if values[0] == select:
+                        sg.popup('値を入力してくれ；；')
+                    else:
+                        result = tip_win(values[0])
+                        sg.popup(result)
+
+            window.close()
+
         elif case == 3:
             layout_show = [  
                 [
@@ -115,18 +157,49 @@ def window_proc(case):
                 ]
             window = sg.Window('複勝', layout_show, size=(300,150))
 
-        while True:
-            event, values = window.read()
-            if event == sg.WIN_CLOSED or event == cancel:
-                break
-            elif event == go:
-                if values[0] == select:
-                    sg.popup('値を入力してくれ；；')
-                else:
-                    result = tip_tierce(values[0])
-                    sg.popup(result)
+            while True:
+                event, values = window.read()
+                if event == sg.WIN_CLOSED or event == cancel:
+                    break
+                elif event == go:
+                    if values[0] == select:
+                        sg.popup('値を入力してくれ；；')
+                    else:
+                        result = tip_win(values[0])
+                        sg.popup(result)
 
-        window.close()
+            window.close()
+
+        elif case == 4:
+            layout_bracket = [  
+                [
+                sg.Text(text), 
+                sg.Combo(
+                    values=starters,
+                    default_value=select,
+                    size=(30,1),
+                    readonly=True)
+                ],
+                [
+                sg.Button(go),
+                sg.Button(cancel)
+                ] 
+                ]
+            window = sg.Window('複勝', layout_bracket, size=(300,150))
+
+            while True:
+                event, values = window.read()
+                if event == sg.WIN_CLOSED or event == cancel:
+                    break
+                elif event == go:
+                    if values[0] == select:
+                        sg.popup('値を入力してくれ；；')
+                    else:
+                        result = tip_bracket()
+                        sg.popup(result)
+
+            window.close()
+
 
 
 # 三連単のデータ処理する関数
@@ -137,6 +210,10 @@ def tip_tierce(NumOfRunners):
 def tip_win(NumOfRunners):
     win = (random.sample(range(1,int(NumOfRunners)),k=1))
     return win
+# 枠連
+def tip_bracket():
+    bracket = (random.sample(range(1,9),k=2))
+    return ('-'.join(map(str, bracket)))
 
 if __name__ == "__main__":
     main()
